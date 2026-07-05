@@ -43,11 +43,13 @@ Claude Code로 이 루트에서 세션을 열면, 개별 구현자가 아니라 
 
 스냅샷은 [`PROJECTS.md`](./PROJECTS.md) 참조.
 
-| 프로젝트 | 한 줄 |
-|---|---|
-| bumang-blog | 개인 블로그 + 포트폴리오 (bumang.xyz) |
-| ant-index | 주식 커뮤니티 심리 지표 (시총 트리맵 히트맵으로 피벗 중) |
-| zentarot | 모바일 타로 앱 (애니메이션 중심) |
+| 프로젝트 | 한 줄 | 레포 |
+|---|---|---|
+| bumang-blog | 개인 블로그 + 포트폴리오 ([bumang.xyz](https://bumang.xyz)) | [orchestrator](https://github.com/bu-mang/bumang-blog-ochestrator) · [front](https://github.com/bu-mang/bumang-blog-front) · [backend](https://github.com/bu-mang/bumang-blog-backend) |
+| ant-index | 주식 커뮤니티 심리 지표 (시총 트리맵 히트맵으로 피벗 중) | [ant-index](https://github.com/bu-mang/ant-index) |
+| zentarot | 모바일 타로 앱 (애니메이션 중심) | [zentarot](https://github.com/bu-mang/zentarot) 🔒 |
+
+> 🔒 = private repo (외부에서는 비공개).
 
 ---
 
