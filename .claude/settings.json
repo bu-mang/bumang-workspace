@@ -1,0 +1,20 @@
+{
+  "enabledPlugins": {
+    "cpf@camfit-plugins": false,
+    "camfit-admin-plugin@camfit-plugins": false
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/beomhwan/Work/private/.claude/session-brief.sh",
+            "timeout": 15,
+            "statusMessage": "포트폴리오 모멘텀 로딩 중..."
+          }
+        ]
+      }
+    ]
+  }
+}

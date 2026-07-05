@@ -1,0 +1,21 @@
+# ── 이 루트는 "매니저 레이어" 레포다 ──
+# 하위 프로젝트(ant-index·bumang-blog·zentarot…)는 각자 독립 git repo이므로
+# 여기에 포함하지 않는다. 전략: 최상위를 전부 무시(whitelist)하고 매니저 파일만 되살린다.
+# → 새 하위 레포를 추가해도 자동으로 제외된다(별도 작업 불필요).
+
+# 1) 최상위의 모든 것을 일단 무시 (하위 레포 디렉토리 포함)
+/*
+
+# 2) 매니저 레이어만 추적 대상으로 되살림
+!/.gitignore
+!/README.md
+!/CLAUDE.md
+!/PROJECTS.md
+!/memory/
+!/.claude/
+
+# 3) .claude 안의 로컬 전용/개인 설정은 다시 제외
+.claude/settings.local.json
+
+# 4) OS/잡파일 (중첩 위치까지)
+.DS_Store
