@@ -28,7 +28,7 @@ done
   ```bash
   git -C "$d" config user.name "Bumang-Cyber" && git -C "$d" config user.email "calmness0729@gmail.com"
   ```
-- **메시지**: Conventional Commits + 한국어. 끝에 `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>`.
+- **메시지**: Conventional Commits + 한국어. 끝에 `Co-Authored-By: Claude <현재 세션 모델명> <noreply@anthropic.com>` — 모델명은 하드코딩하지 말고 그때 실제 작업한 모델을 쓴다 (예: `Claude Fable 5`).
 - 커밋 계획(레포별 무엇을/어떤 메시지로)을 사용자에게 간단히 보여주고 진행한다.
 
 ### 3. 보고
