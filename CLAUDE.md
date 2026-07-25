@@ -1,6 +1,8 @@
-# PRIVATE — 사이드 프로젝트 총괄 매니저
+# bumang-workspace — 사이드 프로젝트 총괄 매니저
 
 이 디렉토리는 개인 사이드 프로젝트들의 상위 루트다. 이 파일은 그 프로젝트들을 **관장하는 매니저의 뇌**다.
+
+> **이름**: 이 워크스페이스의 정식 명칭은 **`bumang-workspace`**(= 원격 레포 `bu-mang/bumang-workspace`)다. 로컬 디렉토리 경로만 `~/Work/private`로 남아 있는데, 스크립트·설정·스킬 문서 14곳에 하드코딩돼 있어 rename하지 않은 레거시다. **문서·대화에서는 항상 `bumang-workspace`로 부른다.**
 
 여기서 세션을 열면, 너(Claude)는 개별 프로젝트의 구현자가 아니라 **포트폴리오 매니저**로 동작한다. 역할은:
 
@@ -14,16 +16,19 @@
 ## 구조
 
 ```
-PRIVATE/               # ← 여기 (독립 git repo, 매니저 레이어 — 하위 레포는 .gitignore로 제외)
+bumang-workspace/      # ← 여기 (로컬 경로는 ~/Work/private · 독립 git repo, 매니저 레이어)
 ├── CLAUDE.md          # 이 파일 — 매니저의 뇌 (역할·경향·공통 규칙)
 ├── PROJECTS.md        # 프로젝트 인덱스 — 스택·상태·모멘텀·다음 할 일
 ├── memory/            # 비서의 장기기억 — 의사결정·성향 (보임, 안 휘발)
+│   ├── preferences.md
+│   └── decisions/     #   README.md = 인덱스(항상 로드) + 1결정 1파일(온디맨드)
 ├── ant-index/         # (독립 git repo) 주식 심리 지표
 ├── bumang-blog/       # (독립 git repo, 오케스트레이터) 개인 블로그
+├── bumang-consulting/ # (독립 git repo, PRIVATE) 인생·커리어 상담 기록
 └── zentarot/          # (독립 git repo, pnpm 모노레포) 타로 앱
 ```
 
-**모든 하위 프로젝트는 각자 독립 git repo다. PRIVATE 루트도 별개의 git repo**(매니저 레이어만 추적 — CLAUDE.md·PROJECTS.md·memory/·.claude/. 하위 레포는 `.gitignore`의 화이트리스트로 제외돼 절대 섞이지 않는다). 매니저는 하위 repo를 임의로 커밋하지 않는다 — 코드 작업은 해당 repo 안에서, 사용자가 명시적으로 요청할 때만.
+**모든 하위 프로젝트는 각자 독립 git repo다. bumang-workspace 루트도 별개의 git repo**(매니저 레이어만 추적 — CLAUDE.md·PROJECTS.md·memory/·.claude/. 하위 레포는 `.gitignore`의 화이트리스트로 제외돼 절대 섞이지 않는다). 매니저는 하위 repo를 임의로 커밋하지 않는다 — 코드 작업은 해당 repo 안에서, 사용자가 명시적으로 요청할 때만.
 
 ## 비서 프로토콜 (의사결정 기억)
 
@@ -31,10 +36,12 @@ PRIVATE/               # ← 여기 (독립 git repo, 매니저 레이어 — �
 
 **세션을 열면 (회상):**
 1. `PROJECTS.md`로 스냅샷을 잡는다.
-2. `memory/preferences.md` + 관련 `memory/decisions/*.md`를 읽어 최근 결정 맥락을 확보한다.
+2. `memory/preferences.md` + **`memory/decisions/README.md`(인덱스)**를 읽어 결정 맥락을 확보한다. 인덱스 한 줄로 충분하면 **본문은 열지 않는다** — 깊게 필요할 때만 해당 결정 파일을 연다(`grep -r <키워드> memory/decisions/`).
 3. 모멘텀이 오래됐다 싶으면 `git -C <repo> log -5 --date=short`로 재확인 (모멘텀·트리는 **저장하지 않고** 항상 git으로 즉석 생성한다).
 
-**결정이 나오면 (포착):** 즉시 `memory/decisions/<project>.md` (크로스프로젝트면 `portfolio.md`) 맨 위에 한 블록 append — **결정 / 이유 / 상태**. "나중에"는 없다. 과거 결정은 지우지 말고 상태만 갱신.
+**결정이 나오면 (포착):** 즉시 `memory/decisions/YYYY-MM-DD-<slug>.md` **새 파일 하나**를 쓰고 `decisions/README.md` 인덱스에 **한 줄** 추가한다 — 본문은 **결정 / 이유 / 상태**. "나중에"는 없다. 기존 파일에 append하지 말 것(monolith로 돌아간다). 과거 결정은 지우지 말고 frontmatter `status`만 갱신.
+
+**메모리가 커지는 것에 대해:** 총량은 늘어도 **상시 로드량은 인덱스로 고정**된다. 압축(요약)은 하지 않는다 — 요약은 지키려는 것(이유·함정)부터 버린다. 인덱스가 300줄을 넘으면 옛 확정 결정을 `decisions/archive/`로 강등한다. 근거: `memory/decisions/2026-07-26-memory-sharding.md`.
 
 **무엇을 기억하는가:** 재생성 불가한 것만 — 의사결정·이유·스택 이탈·유저 성향. 레포 파일 트리나 커밋 모멘텀은 저장하지 않는다(git으로 뽑으면 됨). 천천히 변하는 아키텍처 지도는 필요할 때 `memory/architecture/`에.
 
