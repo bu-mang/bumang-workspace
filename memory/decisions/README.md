@@ -8,10 +8,12 @@
 
 ## 🔴 열린 항목
 
+- [2026-07-26-aws-account-hygiene](2026-07-26-aws-account-hygiene.md) — **[보안] 블로그 오리진 IP가 public 레포(bumang-blog-backend README) SSH 예시에 노출** → Cloudflare로 숨긴 의미가 없어짐, 플레이스홀더 교체 필요. 그 외 실제 청구액 확인 · 예산 알림 · 타 리전 점검 · EB 잔여 정리
 - [2026-07-26-docker-log-rotation](2026-07-26-docker-log-rotation.md) — **ant-index에 Docker 로그 로테이션 걸렸는지 점검 필요.** 서버 전역 `/etc/docker/daemon.json` 기본 로테이션도 확인. (zentarot는 미배포라 후순위)
 
 ## 크로스프로젝트 결정 (최신순)
 
+- [2026-07-26-aws-account-hygiene](2026-07-26-aws-account-hygiene.md) — 2024년 EB 잔재(`Bumang-ket-env`) 정리. **관리형 서비스는 인스턴스가 아니라 부모(EB 환경·ASG)를 지운다** — 인스턴스만 종료하면 계속 부활. `-env` 접미사가 EB 힌트. 블로그 오리진은 Cloudflare 뒤라 DNS로 못 찾고 인증서·Host 헤더·인스턴스 타입(t4g.small vs t2.micro)으로 식별. **블로그는 이 계정에 없다** — 장애 대응 시 엉뚱한 계정에서 헤맬 위험. 공인 IPv4는 2024-02부터 유료
 - [2026-07-26-memory-sharding](2026-07-26-memory-sharding.md) — 결정 로그를 monolith에서 인덱스+1결정1파일로 분해. 압축(요약)이 아니라 계층화 — 총량과 상시 로드량을 분리해 로드량을 상수로 고정. 아카이브 트리거 = 인덱스 300줄
 - [2026-07-26-docker-log-rotation](2026-07-26-docker-log-rotation.md) — Docker Compose 개인 프로젝트는 전 서비스 로그 로테이션 필수. bumang-blog 502의 진범은 로테이션 없는 json-file 로그 7.6G. 함정 2개: `expose`만 된 포트는 `curl localhost:4001`이 정상적으로 실패 / Actions는 `app`만 재생성이라 배포 후 전체 `up -d` 필요
 - [2026-07-12-plugin-optout-per-repo](2026-07-12-plugin-optout-per-repo.md) — 회사 플러그인 차단은 레포별 `false` 유지, 전역 반전안 기각(회사 repo에서 켜는 걸 잊는 쪽이 더 위험). cpf엔 대화록 업로드 Stop 훅이 있어 실질 방어선
