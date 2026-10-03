@@ -8,11 +8,13 @@
 
 ## 🔴 열린 항목
 
-- [2026-07-26-aws-account-hygiene](2026-07-26-aws-account-hygiene.md) — **[보안] 블로그 오리진 IP가 public 레포(bumang-blog-backend README) SSH 예시에 노출** → Cloudflare로 숨긴 의미가 없어짐, 플레이스홀더 교체 필요. 그 외 실제 청구액 확인 · 예산 알림 · 타 리전 점검 · EB 잔여 정리
+- [2026-07-26-aws-account-hygiene](2026-07-26-aws-account-hygiene.md) — ~~[보안] 블로그 오리진 IP가 public 레포 README에 노출~~ → **2026-10-03 오리진 80·443을 Cloudflare 대역만 허용해 실질 위험은 닫힘**(IP를 알아도 직접 접속 불가, SSH는 키 전용). README 플레이스홀더 교체는 선택. 그 외 실제 청구액 확인 · 예산 알림 · 타 리전 점검 · EB 잔여 정리
 - [2026-07-26-docker-log-rotation](2026-07-26-docker-log-rotation.md) — **ant-index에 Docker 로그 로테이션 걸렸는지 점검 필요.** 서버 전역 `/etc/docker/daemon.json` 기본 로테이션도 확인. (zentarot는 미배포라 후순위)
 
 ## 크로스프로젝트 결정 (최신순)
 
+- [2026-10-03-small-server-node-ops](2026-10-03-small-server-node-ops.md) — 작은 EC2에서 Node 컨테이너 운영 규칙: 힙 상한은 `command`에(마이그레이션이 물려받지 않게), 진단 리포트는 **`--report-exclude-env` 필수**, 코어 덤프는 기록만, 로그는 호스트 마운트, 마이그레이션은 빌드된 JS(ts-node는 256MB 꽉 참), Next standalone엔 **sharp 필수**(없으면 원본을 조용히 내보냄). 함정: **한도 붙은 컨테이너 안에서 진단 node 금지**(본체를 죽임). **Amazon Linux 2023은 `--releasever=latest` 없이는 보안 패치가 안 들어옴** → 월 1회 systemd 타이머로 업데이트·재부팅. bumang-blog t4g.micro 전환의 근거
+- [2026-09-08-sql-dojo-routine](2026-09-08-sql-dojo-routine.md) — 학습 루틴(SQLD)도 **하위 레포 + 루트 스킬(`/sql-daily`)** 패턴. 실행 엔진 PostgreSQL 5434(SQLite 는 ROLLUP 없음). 함정: 이 레포 모멘텀은 커밋이 아니라 `progress/log.md` 날짜로 판정
 - [2026-09-06-cloudflare-ssr-internal-route](2026-09-06-cloudflare-ssr-internal-route.md) — Cloudflare 뒤 SSR은 백엔드를 **내부 주소로 직행**(공개 도메인 재통과 금지). **`cf-connecting-ip`를 달고 Cloudflare를 다시 지나면 값 무관 403(error 1000)** → bumang-blog 글 상세 SSR 전면 장애. 서버용 내부 URL과 브라우저용 공개 URL 분리. 함정: fetch 실패 body 이중 읽기가 status를 덮어 "영원한 로딩"으로 위장
 - [2026-07-26-aws-account-hygiene](2026-07-26-aws-account-hygiene.md) — 2024년 EB 잔재(`Bumang-ket-env`) 정리. **관리형 서비스는 인스턴스가 아니라 부모(EB 환경·ASG)를 지운다** — 인스턴스만 종료하면 계속 부활. `-env` 접미사가 EB 힌트. 블로그 오리진은 Cloudflare 뒤라 DNS로 못 찾고 인증서·Host 헤더·인스턴스 타입(t4g.small vs t2.micro)으로 식별. **블로그는 이 계정에 없다** — 장애 대응 시 엉뚱한 계정에서 헤맬 위험. 공인 IPv4는 2024-02부터 유료
 - [2026-07-26-memory-sharding](2026-07-26-memory-sharding.md) — 결정 로그를 monolith에서 인덱스+1결정1파일로 분해. 압축(요약)이 아니라 계층화 — 총량과 상시 로드량을 분리해 로드량을 상수로 고정. 아카이브 트리거 = 인덱스 300줄
@@ -30,11 +32,12 @@
 - [bumang-blog](bumang-blog.md) — 정본 `bumang-blog/PLANNING.md`. 스택 시그니처에서 유일하게 이탈(TypeORM)
 - [ant-index](ant-index.md) — 정본 `ant-index/PLANNING.md`. 유일하게 LLM을 제품에 내장
 - [zentarot](zentarot.md) — 정본 `zentarot/PLANNING.md`. `packages/shared` zod 패턴이 이식 가치 최고
+- [sql-dojo](sql-dojo.md) — 정본 `sql-dojo/PLANNING.md`. 유일한 학습 루틴형 프로젝트, 진입점 `/sql-daily`
 
 ## 규칙으로 승격됨 (본문 없음 — `CLAUDE.md`가 정본)
 
 - **스택 시그니처** (NestJS · PostgreSQL+Drizzle · Next/Expo · zod · TS strict · 한국어 · Conventional Commits) → `CLAUDE.md` "스택 시그니처". 이탈 주시: bumang-blog만 TypeORM
-- **포트 레지스트리** (ant-index 5433/3333 · bumang-blog 4000/4001 · zentarot 30000/35432) → `CLAUDE.md` "포트 레지스트리"
+- **포트 레지스트리** (ant-index 5433/3333 · bumang-blog 4000/4001 · zentarot 30000/35432 · sql-dojo 5434) → `CLAUDE.md` "포트 레지스트리"
 
 ## 아카이브
 
