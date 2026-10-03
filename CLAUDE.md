@@ -25,6 +25,7 @@ bumang-workspace/      # ← 여기 (로컬 경로는 ~/Work/private · 독립 g
 ├── ant-index/         # (독립 git repo) 주식 심리 지표
 ├── bumang-blog/       # (독립 git repo, 오케스트레이터) 개인 블로그
 ├── bumang-consulting/ # (독립 git repo, PRIVATE) 인생·커리어 상담 기록
+├── sql-dojo/          # (독립 git repo, 학습) 매일 아침 SQL 루틴 — SQLD 대비 + 활용
 └── zentarot/          # (독립 git repo, pnpm 모노레포) 타로 앱
 ```
 
@@ -56,6 +57,7 @@ bumang-workspace/      # ← 여기 (로컬 경로는 ~/Work/private · 독립 g
 - **`/commit-all`** — 커밋 안 된 변경을 레포별로 **커밋만** 한다(push 안 함). 비밀 점검·`Bumang-Cyber` identity·Conventional Commits. **커밋 규칙의 정본** — commit-push가 이 절차를 재사용. "커밋만 해줘"·"푸시 말고 커밋".
 - **`/commit-push`** — **커밋+푸시 통합 정본.** commit-all 절차로 커밋 + 전부 push. 커밋할 게 없으면 앞선 커밋만 push. "커밋푸시해줘"·"전부 push"·"다 밀어줘" 전부 여기로.
 - **`/push-repo <레포명>`** — 지목한 레포 하나만 push (좁은 용도).
+- **`/sql-daily [토픽|숫자|오답|모의고사|이론]`** — 아침 SQL 루틴. 출제·채점·진도 기록. 프로토콜 정본은 `sql-dojo/CLAUDE.md`. "sql 문제 내줘"·"오늘 sql".
 
 **인증 (반드시 지킬 것):** 이 루트 레포는 전부 **`bu-mang`(개인) 소유**인데 머신 기본 gh 계정은 **회사(`bhjeong-camfit`)**이고 셸에 `GITHUB_TOKEN`(회사 토큰)이 있어 그냥 push하면 **403**. 그래서 push는 **반드시 `push-personal.sh`**로 한다 — `GITHUB_TOKEN`을 이 프로세스에서만 unset → gh 활성계정을 `bu-mang`으로 전환 → push → **원래 계정 자동 복원**. `repos-push.sh`를 직접 부르지 말 것. `~/.zshrc`의 `GITHUB_TOKEN`은 **절대 지우지 않는다**(Camfit 셋업 산물).
 
@@ -81,6 +83,7 @@ bumang-workspace/      # ← 여기 (로컬 경로는 ~/Work/private · 독립 g
 | ant-index | PostgreSQL / server | 5433 / 3333 |
 | bumang-blog | front / backend | 4000 / 4001 |
 | zentarot | API / PostgreSQL | 30000 / 35432 |
+| sql-dojo | PostgreSQL | 5434 |
 
 새 프로젝트를 추가할 땐 위와 겹치지 않는 포트를 배정한다.
 
