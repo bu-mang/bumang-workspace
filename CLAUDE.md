@@ -22,11 +22,11 @@ bumang-workspace/      # ← 여기 (로컬 경로는 ~/Work/private · 독립 g
 ├── memory/            # 비서의 장기기억 — 의사결정·성향 (보임, 안 휘발)
 │   ├── preferences.md
 │   └── decisions/     #   README.md = 인덱스(항상 로드) + 1결정 1파일(온디맨드)
+├── aloha-sql/         # (독립 git repo, Unity) 알로하 SQL — SQL로 팀 요청을 쳐내는 데이터 분석가 게임
 ├── ant-index/         # (독립 git repo) 주식 심리 지표
 ├── bumang-blog/       # (독립 git repo, 오케스트레이터) 개인 블로그
 ├── bumang-consulting/ # (독립 git repo, PRIVATE) 인생·커리어 상담 기록
 ├── sql-dojo/          # (독립 git repo, 학습) 매일 아침 SQL 루틴 — SQLD 대비 + 활용
-├── sql-office/        # (독립 git repo, Unity) SQL로 팀 요청을 쳐내는 데이터 분석가 게임
 └── zentarot/          # (독립 git repo, pnpm 모노레포) 타로 앱
 ```
 
