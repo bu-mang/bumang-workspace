@@ -4,6 +4,7 @@
 
 - **정본**: `bumang-blog/PLANNING.md` — 블로그 삽화 다이어그램 생성 레시피(스킬화 보류), 콘텐츠·UI 방향, 스택 TypeORM 유지/Drizzle 이관 보류.
 - **2026-10-02~03 (하루 몰아서)**: 이미지 최적화 복구(sharp)·S3/레포 이미지 다이어트, 인증 재구성(access JWT 15분 + 기기별 refresh 세션, 사용자 서버 확정, 프론트 서명 키 제거), 봇 차단 Cloudflare WAF·오리진 CF 대역만, 메모리 다이어트 후 **t4g.micro 전환**. 미결: KT→LAX 엣지 경유. 정본은 PLANNING.md 해당 날짜 항목, 크로스프로젝트 규칙은 [[2026-10-03-small-server-node-ops]].
+- **2026-11-01**: 분류 전면 개편(카테고리 29→16, 그룹 8, 태그 7, 전부 영어 이름) + slug 도입 + 분류 쓰기 API host 전용. 로컬 리허설 검증 완료·배포 전. 정본은 PLANNING.md 해당 항목, 크로스프로젝트 규칙은 [[2026-11-01-slug-label-id-roles]].
 - **크로스프로젝트 맥락**: 스택 시그니처(Drizzle)에서 유일하게 이탈한 프로젝트(TypeORM) → [[README]] (크로스프로젝트 인덱스). 가장 오래·성숙.
 - **글 작성**: 톤앤매너 정본은 `bumang-blog/BLOG_GUIDE.md` + `blog-references/`.
 - **모멘텀 스냅샷**: `PROJECTS.md`(매니저 인덱스). 상세는 `git -C bumang-blog log`로 즉석.
